@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '../../../../node_modules/@angular/forms';
 
 @Component({
   selector: 'mm-layout',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.less']
 })
 export class LayoutComponent implements OnInit {
+
+  searchBox = new FormControl();
 
   constructor() { }
 

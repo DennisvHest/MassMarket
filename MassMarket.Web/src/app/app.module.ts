@@ -4,7 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout/layout.component';
-import { MatButtonModule } from '@angular/material';
+import { MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatIconModule } from '@angular/material';
+import { ReactiveFormsModule } from '../../node_modules/@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,13 @@ import { MatButtonModule } from '@angular/material';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatButtonModule
+    MatToolbarModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

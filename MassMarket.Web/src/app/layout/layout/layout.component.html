@@ -1,4 +1,14 @@
-<p>
-  layout works!
-</p>
-<button mat-raised-button color="primary">Primary</button>
+<mat-toolbar color="primary">
+  <span>
+    |<b>Mass</b>Market
+  </span>
+  <mat-form-field class="m-l-md">
+    <input type="text" matInput [formControl]="searchBox" [matAutocomplete]="auto">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option value="Hallo">
+      Hallo
+    </mat-option>
+  </mat-autocomplete>
+</mat-toolbar>
