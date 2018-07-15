@@ -11,13 +11,17 @@ namespace MassMarket.Domain {
         public MassMarketContext() : base("MassMarketContext") { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Product>()
                 .HasOptional(p => p.Category)
-                .WithMany(c => c.Products);
+                .WithMany(c => c.Products)
+                .HasForeignKey(p => p.CategoryId);
 
             modelBuilder.Entity<Category>()
                 .HasOptional(c => c.ParentCategory)
-                .WithMany(c => c.ChildCategories);
+                .WithMany(c => c.ChildCategories)
+                .HasForeignKey(c => c.ParentCategoryId);
         }
     }
 }

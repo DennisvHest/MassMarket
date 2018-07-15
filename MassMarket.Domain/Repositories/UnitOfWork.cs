@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MassMarket.Domain.Entities;
 
 namespace MassMarket.Domain.Repositories {
 
@@ -6,8 +7,14 @@ namespace MassMarket.Domain.Repositories {
 
         private readonly MassMarketContext _context;
 
+        public IRepository<Product> Products { get; }
+        public IRepository<Category> Categories { get; }
+
         public UnitOfWork(MassMarketContext context) {
             _context = context;
+
+            Products = new ProductRepository(context);
+            Categories = new CategoryRepository(context);
         }
 
         public async Task<int> Complete() {
