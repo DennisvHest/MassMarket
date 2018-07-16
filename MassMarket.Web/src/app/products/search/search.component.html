@@ -4,28 +4,31 @@
       <mat-icon>menu</mat-icon>
     </button>
     <div *ngIf="searchOptions">
-      <h2>Search for products</h2>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Search query">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <mat-select placeholder="Category">
-          <mat-option value="0" selected>
-            All Categories
-          </mat-option>
-          <ng-container *ngFor="let category of searchOptions.categories">
-            <mat-option class="option-group" [value]="category.id">
-              {{category.name}}
-            </mat-option>
-            <mat-option class="sub-option" *ngFor="let childCategory of category.childCategories" [value]="childCategory.id">
-              {{childCategory.name}}
-            </mat-option>
-          </ng-container>
-        </mat-select>
-      </mat-form-field>
+      <form [formGroup]="searchForm">
+        <h2>Search for products</h2>
+        <mat-form-field class="full-width">
+          <input formControlName="queryText" matInput placeholder="Search query">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-select formControlName="categoryId" placeholder="Category" (selectionChange)="search()">
+            <ng-container *ngFor="let category of searchOptions.categories">
+              <mat-option [class.option-group]="category.id !== 0" [value]="category.id">
+                {{category.name}}
+              </mat-option>
+              <mat-option class="sub-option" *ngFor="let childCategory of category.childCategories" [value]="childCategory.id">
+                {{childCategory.name}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="full-width" (click)="search()">Search</button>
+      </form>
     </div>
   </mat-sidenav>
   <mat-toolbar>
   </mat-toolbar>
-  <h1>Search results</h1>
+  <mat-progress-bar mode="indeterminate" *ngIf="searching"></mat-progress-bar>
+  <div fxflex fxLayout="row wrap" id="search-results" class="p-a" [class.searching]="searching">
+    <mm-product-card *ngFor="let product of foundProducts" [product]="product" fxflex fxFlex="20%" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="20"></mm-product-card>
+  </div>
 </mat-sidenav-container>

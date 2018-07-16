@@ -10,9 +10,14 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule,
-  MatOptionModule
+  MatOptionModule,
+  MatCardModule,
+  MatProgressBarModule
 } from '@angular/material';
-import { HttpClientModule } from '../../../node_modules/@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { FlexLayoutModule } from '../../../node_modules/@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -26,8 +31,12 @@ import { HttpClientModule } from '../../../node_modules/@angular/common/http';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    FlexLayoutModule,
+    MatProgressBarModule
   ],
-  declarations: [SearchComponent]
+  declarations: [SearchComponent, ProductCardComponent]
 })
 export class ProductModule { }

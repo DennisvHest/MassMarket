@@ -18,6 +18,11 @@ namespace MassMarket.Domain {
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId);
 
+            modelBuilder.Entity<Image>()
+                .HasOptional(p => p.Product)
+                .WithMany(c => c.Images)
+                .HasForeignKey(p => p.ProductId);
+
             modelBuilder.Entity<Category>()
                 .HasOptional(c => c.ParentCategory)
                 .WithMany(c => c.ChildCategories)

@@ -21,15 +21,17 @@ namespace MassMarket.Service {
         public IEnumerable<Product> Search(SearchModel query) {
             IQueryable<Product> searchResult = _unitOfWork.Products.GetAll();
 
+            // Category filter
+            if (query.CategoryId != 0) {
+                searchResult = searchResult.Where(p => 
+                    p.CategoryId == query.CategoryId
+                    || p.Category.ParentCategoryId == query.CategoryId);
+            }
+
             // Query text filter
             if (!string.IsNullOrEmpty(query.QueryText)) {
                 searchResult = searchResult.Where(p =>
                     p.Name.Contains(query.QueryText) || p.Description.Contains(query.QueryText));
-            }
-
-            // Category filter
-            if (query.CategoryId != 0) {
-                searchResult = searchResult.Where(p => p.CategoryId == query.CategoryId);
             }
 
             return searchResult;
