@@ -21,10 +21,11 @@ namespace MassMarket.Web.Controllers {
 
     [HttpGet]
     [Route("search")]
-    public IEnumerable<ProductCardModel> Search([FromUri] SearchModel query) {
-      IEnumerable<Product> foundProducts = _productService.Search(query).ToList();
+    public SearchResultModel Search([FromUri] SearchModel query) {
+      SearchResult searchResult = _productService.Search(query);
+      searchResult.FoundProducts = searchResult.FoundProducts.ToList();
 
-      return foundProducts.Select(p => new ProductCardModel(p)).ToArray();
+      return new SearchResultModel(searchResult);
     }
 
     [HttpGet]

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../../models/product';
+import { ProductCardModel } from '../../models/product-card-model';
 import { AppSettings } from '../../app-settings';
 
 @Component({
@@ -9,7 +9,7 @@ import { AppSettings } from '../../app-settings';
 })
 export class ProductCardComponent implements OnInit {
 
-  @Input('product') product: Product;
+  @Input('product') product: ProductCardModel;
 
   constructor() { }
 

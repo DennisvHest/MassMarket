@@ -21,6 +21,16 @@
             </ng-container>
           </mat-select>
         </mat-form-field>
+        <div class="m-b">
+          <mat-label>Minimum price</mat-label>
+          <mat-slider #minPriceSlider class="full-width p-a-0" formControlName="minPrice" [max]="searchResult?.maxPrice" [min]="searchResult?.minPrice"></mat-slider>
+          <mat-hint *ngIf="minPriceSlider.value">€ {{minPriceSlider.value}}</mat-hint>
+        </div>
+        <div class="m-b">
+          <mat-label>Maximum price</mat-label>
+          <mat-slider #maxPriceSlider class="full-width p-a-0" formControlName="maxPrice" [max]="searchResult?.maxPrice" [min]="minPriceSlider.value"></mat-slider>
+          <mat-hint *ngIf="maxPriceSlider.value">€ {{maxPriceSlider.value}}</mat-hint>
+        </div>
         <button mat-raised-button color="primary" class="full-width" (click)="search()">Search</button>
       </form>
     </div>
@@ -28,7 +38,8 @@
   <mat-toolbar>
   </mat-toolbar>
   <mat-progress-bar mode="indeterminate" *ngIf="searching"></mat-progress-bar>
-  <div fxflex fxLayout="row wrap" id="search-results" class="p-a" [class.searching]="searching">
-    <mm-product-card *ngFor="let product of foundProducts" [product]="product" fxflex fxFlex="20%" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="33" fxFlex.lg="20"></mm-product-card>
+  <div *ngIf="searchResult?.products" fxflex fxLayout="row wrap" id="search-results" class="p-a" [class.searching]="searching">
+    <mm-product-card *ngFor="let product of searchResult.products" [product]="product" fxflex fxFlex="20%" fxFlex.xs="100" fxFlex.sm="50"
+      fxFlex.md="33" fxFlex.lg="20"></mm-product-card>
   </div>
 </mat-sidenav-container>

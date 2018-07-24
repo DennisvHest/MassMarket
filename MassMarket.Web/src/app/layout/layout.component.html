@@ -2,14 +2,17 @@
   <span>
     |<b>Mass</b>Market
   </span>
-  <mat-form-field class="m-l-md">
-    <input type="text" matInput [formControl]="searchBox" [matAutocomplete]="auto">
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option value="Hallo">
-      Hallo
-    </mat-option>
-  </mat-autocomplete>
+  <form [formGroup]="navSearchForm" (ngSubmit)="onSearchSubmit()">
+    <mat-form-field class="m-l-md">
+      <input formControlName="queryText" type="text" matInput [matAutocomplete]="auto">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option value="Hallo">
+        Hallo
+      </mat-option>
+    </mat-autocomplete>
+  </form>
+  
 </mat-toolbar>
 <router-outlet></router-outlet>

@@ -7,6 +7,8 @@ namespace MassMarket.Domain {
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<MetaField> MetaFields { get; set; }
+        public DbSet<MetaFieldOption> MetaFieldOptions { get; set; }
 
         public MassMarketContext() : base("MassMarketContext") { }
 
@@ -17,6 +19,21 @@ namespace MassMarket.Domain {
                 .HasOptional(p => p.Category)
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId);
+
+            modelBuilder.Entity<ProductMetaField>()
+                .HasRequired(pm => pm.Product)
+                .WithMany(p => p.MetaFields)
+                .HasForeignKey(pm => pm.ProductId);
+
+            modelBuilder.Entity<ProductMetaField>()
+                .HasRequired(pm => pm.MetaField)
+                .WithMany(m => m.Products)
+                .HasForeignKey(pm => pm.MetaFieldId);
+
+            modelBuilder.Entity<ProductMetaField>()
+                .HasRequired(pm => pm.Option)
+                .WithMany(o => o.Products)
+                .HasForeignKey(pm => pm.OptionId);
 
             modelBuilder.Entity<Image>()
                 .HasOptional(p => p.Product)

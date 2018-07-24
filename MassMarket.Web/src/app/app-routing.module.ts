@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '', component: LayoutComponent,
     children: [
-      { path: 'products', loadChildren: './products/product.module#ProductModule'}
+      { path: 'products', loadChildren: './products/product.module#ProductModule' }
     ]
   }
 ];

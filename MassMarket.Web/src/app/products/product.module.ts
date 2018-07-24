@@ -12,12 +12,13 @@ import {
   MatSelectModule,
   MatOptionModule,
   MatCardModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatSliderModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductCardComponent } from './product-card/product-card.component';
-import { FlexLayoutModule } from '../../../node_modules/@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { FlexLayoutModule } from '../../../node_modules/@angular/flex-layout';
     ReactiveFormsModule,
     MatCardModule,
     FlexLayoutModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSliderModule
   ],
   declarations: [SearchComponent, ProductCardComponent]
 })

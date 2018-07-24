@@ -3,7 +3,8 @@ import { SearchOptions } from '../models/search-options';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SearchModel } from '../models/search-model';
-import { Product } from '../models/product';
+import { ProductCardModel } from '../models/product-card-model';
+import { SearchResultModel } from '../models/search-result-model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ProductService {
   }
 
   search(query: SearchModel) {
-    return this.http.get<Product[]>(`${ProductService.productsUrl}/search`, {
+    return this.http.get<SearchResultModel>(`${ProductService.productsUrl}/search`, {
       params: <any>query
     });
   }

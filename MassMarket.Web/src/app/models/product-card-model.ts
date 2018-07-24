@@ -1,9 +1,11 @@
 import { Category } from './category';
 
-export class Product {
+export class ProductCardModel {
     id: number;
     name: string;
     description: string;
+    price: number;
+    brand: string;
     image: string;
 
     category: Category;

@@ -1,15 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
-import { MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatIconModule } from '@angular/material';
+import {
+  MatToolbarModule,
+  MatFormFieldModule,
+  MatAutocompleteModule,
+  MatInputModule,
+  MatIconModule,
+  GestureConfig
+} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductService } from './products/product.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '../../node_modules/@angular/router';
 
 @NgModule({
   declarations: [
@@ -26,10 +34,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     BrowserAnimationsModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers: [
-    ProductService
+    ProductService,
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
   ],
   bootstrap: [AppComponent]
 })
