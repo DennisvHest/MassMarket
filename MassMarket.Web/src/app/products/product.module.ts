@@ -13,12 +13,15 @@ import {
   MatOptionModule,
   MatCardModule,
   MatProgressBarModule,
-  MatSliderModule
+  MatSliderModule,
+  MatListModule,
+  MatButtonToggleModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ProductListItemComponent } from './product-list-item/product-list-item.component';
 
 @NgModule({
   imports: [
@@ -37,8 +40,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     FlexLayoutModule,
     MatProgressBarModule,
-    MatSliderModule
+    MatSliderModule,
+    MatListModule,
+    MatButtonToggleModule
   ],
-  declarations: [SearchComponent, ProductCardComponent]
+  declarations: [SearchComponent, ProductCardComponent, ProductListItemComponent]
 })
 export class ProductModule { }

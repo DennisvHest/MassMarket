@@ -1,0 +1,35 @@
+:host {
+    padding: 10px 0;
+}
+
+img {
+    height: 100%;
+    width: 180px;
+    object-fit: cover;
+    align-self: center
+}
+
+h2 {
+    margin: 0;
+}
+
+p {
+    max-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.mat-list-item {
+    height: initial;
+}
+
+/deep/ .mat-list .mat-list-item .mat-list-item-content {
+    align-items: initial;
+}
+
+/deep/ .mat-list-item-content {
+    flex-wrap: wrap;
+}

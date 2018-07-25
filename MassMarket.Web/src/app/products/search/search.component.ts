@@ -5,9 +5,13 @@ import { SearchOptions } from '../../models/search-options';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CategoryOption } from '../../models/category-option';
 import { SearchModel } from '../../models/search-model';
-import { ProductCardModel } from '../../models/product-card-model';
-import { Router, Params, ParamMap, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SearchResultModel } from '../../models/search-result-model';
+
+export enum ProductView {
+  Grid,
+  List
+}
 
 @Component({
   selector: 'mm-search',
@@ -23,6 +27,9 @@ export class SearchComponent implements OnInit {
 
   searching: boolean;
 
+  ProductView = ProductView;
+  currentView: ProductView;
+
   constructor(
     private productService: ProductService,
     private formBuilder: FormBuilder,
@@ -30,6 +37,7 @@ export class SearchComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
+    this.currentView = ProductView.Grid;
     this.createForm();
   }
 
@@ -49,6 +57,7 @@ export class SearchComponent implements OnInit {
 
       const params = <SearchModel>this.route.snapshot.queryParams;
 
+      // Set the search option values to the values from the URL query parameters
       this.searchForm.setValue({
         queryText: params.queryText ? params.queryText : '',
         categoryId: params.categoryId ? +params.categoryId : 0,
@@ -56,6 +65,7 @@ export class SearchComponent implements OnInit {
         maxPrice: params.maxPrice ? +params.maxPrice : null
       });
 
+      // Disable minPrice and maxPrice until initial search is complete
       if (!params.minPrice) {
         this.searchForm.controls['minPrice'].disable();
       }
@@ -75,11 +85,7 @@ export class SearchComponent implements OnInit {
   search() {
     const query = this.searchForm.value;
 
-    if (query.minPrice === 0 && query.maxPrice === 0) {
-      query.minPrice = null;
-      query.maxPrice = null;
-    }
-
+    // Change the URL query parameters to the current search query
     const url = this.router
       .createUrlTree([], { queryParams: query, relativeTo: this.route })
       .toString();
@@ -94,5 +100,9 @@ export class SearchComponent implements OnInit {
         this.searchForm.controls['minPrice'].enable();
         this.searchForm.controls['maxPrice'].enable();
       });
+  }
+
+  changeView(view: ProductView) {
+    this.currentView = view;
   }
 }

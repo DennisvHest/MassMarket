@@ -1,7 +1,7 @@
 import { ProductCardModel } from './product-card-model';
 
 export class SearchResultModel {
-    products: ProductCardModel;
+    products: ProductCardModel[];
     minPrice: number;
     maxPrice: number;
 }

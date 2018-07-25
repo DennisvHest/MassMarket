@@ -35,11 +35,29 @@
       </form>
     </div>
   </mat-sidenav>
-  <mat-toolbar>
+  <mat-toolbar fxLayout="column">
+    <mat-button-toggle-group fxFlexAlign="flex-end">
+      <mat-button-toggle [checked]="currentView === ProductView.Grid" (click)="changeView(ProductView.Grid)">
+        <mat-icon>view_comfy</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle [checked]="currentView === ProductView.List" (click)="changeView(ProductView.List)">
+        <mat-icon>view_list</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
   </mat-toolbar>
   <mat-progress-bar mode="indeterminate" *ngIf="searching"></mat-progress-bar>
   <div *ngIf="searchResult?.products" fxflex fxLayout="row wrap" id="search-results" class="p-a" [class.searching]="searching">
-    <mm-product-card *ngFor="let product of searchResult.products" [product]="product" fxflex fxFlex="20%" fxFlex.xs="100" fxFlex.sm="50"
-      fxFlex.md="33" fxFlex.lg="20"></mm-product-card>
+    <ng-container *ngIf="currentView === ProductView.Grid">
+      <mm-product-card *ngFor="let product of searchResult.products" [product]="product" fxflex fxFlex="20%" fxFlex.xs="100" fxFlex.sm="50"
+        fxFlex.md="33" fxFlex.lg="20"></mm-product-card>
+    </ng-container>
+    <ng-container *ngIf="currentView === ProductView.List">
+      <mat-list fxLayout="columng wrap">
+        <ng-container *ngFor="let product of searchResult.products; let i = index">
+          <mm-product-list-item [product]="product" fxflex fxFlex="100%"></mm-product-list-item>
+          <mat-divider fxFlex="100%" *ngIf="i + 1 !== searchResult.products.length"></mat-divider>
+        </ng-container>
+      </mat-list>
+    </ng-container>
   </div>
 </mat-sidenav-container>

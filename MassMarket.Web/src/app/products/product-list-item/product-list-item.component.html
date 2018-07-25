@@ -1,0 +1,10 @@
+<mat-list-item>
+  <div fxFlex="200px" fxFlex.xs="100" fxLayout.xs="row wrap">
+      <img fxFlex="200px" fxFlex.xs="100" [src]="imageUrl">
+  </div>
+  <div class="p-a" fxFlex="calc(100% - 200px)" fxFlex.xs="100">
+      <h2>{{product.name}}</h2>
+      <h4>{{product.category.name}} - {{product.brand}}</h4>
+      <p>{{product.description}}</p>
+  </div>
+</mat-list-item>

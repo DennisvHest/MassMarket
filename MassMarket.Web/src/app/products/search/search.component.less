@@ -33,10 +33,15 @@ mat-toolbar {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     position: fixed;
     z-index: 1;
+    right: 0;
 }
 
 mat-form-field {
     margin-bottom: 30px;
+}
+
+.mat-button-toggle-group {
+    height: 100%;
 }
 
 /deep/ .mat-accent .mat-slider-thumb, /deep/ .mat-accent .mat-slider-thumb-label, /deep/ .mat-accent .mat-slider-track-fill {
@@ -56,6 +61,14 @@ mat-form-field {
     margin-top: 50px;
     z-index: 1;
     position: fixed;
+}
+
+.mat-button-toggle-group {
+    box-shadow: none;
+}
+
+.mat-button-toggle /deep/ button {
+    height: 100%;
 }
 
 
