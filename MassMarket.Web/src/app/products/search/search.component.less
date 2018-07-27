@@ -34,14 +34,44 @@ mat-toolbar {
     position: fixed;
     z-index: 1;
     right: 0;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: center;
+
+    mat-select {
+        width: 200px;
+        font-size: 14px;
+        line-height: 50px;
+    }
+
+    span {
+        height: 14px;
+        font-size: 14px;
+        line-height: 14px;
+        font-weight: normal;
+    }
+
+    * {
+        height: 100%;
+    }
+}
+
+mat-paginator {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fafafa;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    color: rgba(0,0,0,.87);
+
+    &/deep/ .mat-paginator-page-size {
+        display: none;
+    }
 }
 
 mat-form-field {
     margin-bottom: 30px;
-}
-
-.mat-button-toggle-group {
-    height: 100%;
 }
 
 /deep/ .mat-accent .mat-slider-thumb, /deep/ .mat-accent .mat-slider-thumb-label, /deep/ .mat-accent .mat-slider-track-fill {
@@ -51,6 +81,7 @@ mat-form-field {
 #search-results {
     margin-top: 50px;
     transition: opacity .2s;
+    margin-bottom: 150px;
 
     &.searching {
         opacity: 0.7;

@@ -15,7 +15,8 @@ import {
   MatProgressBarModule,
   MatSliderModule,
   MatListModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatPaginatorModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -42,7 +43,8 @@ import { ProductListItemComponent } from './product-list-item/product-list-item.
     MatProgressBarModule,
     MatSliderModule,
     MatListModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatPaginatorModule
   ],
   declarations: [SearchComponent, ProductCardComponent, ProductListItemComponent]
 })

@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductService } from './products/product.service';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '../../node_modules/@angular/router';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [

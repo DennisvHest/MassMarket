@@ -4,4 +4,5 @@ export class SearchResultModel {
     products: ProductCardModel[];
     minPrice: number;
     maxPrice: number;
+    totalProductCount: number;
 }

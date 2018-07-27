@@ -31,11 +31,24 @@
           <mat-slider #maxPriceSlider class="full-width p-a-0" formControlName="maxPrice" [max]="searchResult?.maxPrice" [min]="minPriceSlider.value"></mat-slider>
           <mat-hint *ngIf="maxPriceSlider.value">€ {{maxPriceSlider.value}}</mat-hint>
         </div>
+        <input type="hidden" formControlName="ordering" [(ngModel)]="searchForm.value.ordering" />
         <button mat-raised-button color="primary" class="full-width" (click)="search()">Search</button>
       </form>
     </div>
   </mat-sidenav>
   <mat-toolbar fxLayout="column">
+    <span class="m-x-xs">Ordered by:</span>
+    <mat-select #ordering fxFlexAlign="flex-end" [value]="searchForm.value.ordering" (selectionChange)="onOrderingChange(ordering.value)">
+      <mat-option [value]="ProductOrdering.ProductOrdering.Relevancy">
+        Relevancy
+      </mat-option>
+      <mat-option [value]="ProductOrdering.ProductOrdering.PriceLowToHigh">
+        Price low to high
+      </mat-option>
+      <mat-option [value]="ProductOrdering.ProductOrdering.PriceHighToLow">
+        Price high to low
+      </mat-option>
+    </mat-select>
     <mat-button-toggle-group fxFlexAlign="flex-end">
       <mat-button-toggle [checked]="currentView === ProductView.Grid" (click)="changeView(ProductView.Grid)">
         <mat-icon>view_comfy</mat-icon>
@@ -48,7 +61,7 @@
   <mat-progress-bar mode="indeterminate" *ngIf="searching"></mat-progress-bar>
   <div *ngIf="searchResult?.products" fxflex fxLayout="row wrap" id="search-results" class="p-a" [class.searching]="searching">
     <ng-container *ngIf="currentView === ProductView.Grid">
-      <mm-product-card *ngFor="let product of searchResult.products" [product]="product" fxflex fxFlex="20%" fxFlex.xs="100" fxFlex.sm="50"
+      <mm-product-card *ngFor="let product of searchResult.products" [product]="product" fxflex fxFlex="20" fxFlex.xs="100" fxFlex.sm="50"
         fxFlex.md="33" fxFlex.lg="20"></mm-product-card>
     </ng-container>
     <ng-container *ngIf="currentView === ProductView.List">
@@ -60,4 +73,6 @@
       </mat-list>
     </ng-container>
   </div>
+  <mat-paginator *ngIf="searchOptions && searchResult" [pageIndex]="searchForm.value.pageNr - 1" [length]="searchResult.totalProductCount" [pageSize]="20" [pageSizeOptions]="[]" [showFirstLastButtons]="true"
+    (page)="onPageChange($event)"></mat-paginator>
 </mat-sidenav-container>

@@ -8,5 +8,6 @@ namespace MassMarket.Service.Models {
         public IEnumerable<Product> FoundProducts { get; set; }
         public decimal? MinPrice { get; set; }
         public decimal? MaxPrice { get; set; }
+        public int TotalProductCount { get; set; }
     }
 }

@@ -7,6 +7,8 @@ import { CategoryOption } from '../../models/category-option';
 import { SearchModel } from '../../models/search-model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchResultModel } from '../../models/search-result-model';
+import { ProductOrdering } from '../../models/product-ordering';
+import { PageEvent } from '../../../../node_modules/@angular/material';
 
 export enum ProductView {
   Grid,
@@ -22,6 +24,7 @@ export class SearchComponent implements OnInit {
 
   searchOptions: SearchOptions;
   searchResult: SearchResultModel;
+  ProductOrdering = ProductOrdering;
 
   searchForm: FormGroup;
 
@@ -62,7 +65,9 @@ export class SearchComponent implements OnInit {
         queryText: params.queryText ? params.queryText : '',
         categoryId: params.categoryId ? +params.categoryId : 0,
         minPrice: params.minPrice ? +params.minPrice : null,
-        maxPrice: params.maxPrice ? +params.maxPrice : null
+        maxPrice: params.maxPrice ? +params.maxPrice : null,
+        ordering: params.ordering ? +params.ordering : 0,
+        pageNr: params.pageNr ? +params.pageNr : 1
       });
 
       // Disable minPrice and maxPrice until initial search is complete
@@ -104,5 +109,21 @@ export class SearchComponent implements OnInit {
 
   changeView(view: ProductView) {
     this.currentView = view;
+  }
+
+  onOrderingChange(value) {
+    this.searchForm.patchValue({
+      ordering: value
+    });
+
+    this.search();
+  }
+
+  onPageChange(event: PageEvent) {
+    this.searchForm.patchValue({
+      pageNr: event.pageIndex + 1
+    });
+
+    this.search();
   }
 }

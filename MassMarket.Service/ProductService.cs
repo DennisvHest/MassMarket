@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MassMarket.Domain.Entities;
 using MassMarket.Domain.Repositories;
+using MassMarket.Service.Helpers;
 using MassMarket.Service.Models;
 
 namespace MassMarket.Service {
@@ -26,7 +27,7 @@ namespace MassMarket.Service {
 
             // Category filter
             if (query.CategoryId != 0) {
-                foundProducts = foundProducts.Where(p => 
+                foundProducts = foundProducts.Where(p =>
                     p.CategoryId == query.CategoryId
                     || p.Category.ParentCategoryId == query.CategoryId);
             }
@@ -42,7 +43,7 @@ namespace MassMarket.Service {
                 result.MinPrice = Math.Floor(foundProducts.Min(p => p.Price));
                 result.MaxPrice = Math.Ceiling(foundProducts.Max(p => p.Price));
             }
-            
+
             // Price filter
             if (query.MinPrice.HasValue) {
                 foundProducts = foundProducts.Where(p => p.Price >= query.MinPrice);
@@ -52,7 +53,10 @@ namespace MassMarket.Service {
                 foundProducts = foundProducts.Where(p => p.Price <= query.MaxPrice);
             }
 
-            result.FoundProducts = foundProducts.Take(20);
+            result.TotalProductCount = foundProducts.Count();
+
+            result.FoundProducts = foundProducts.OrderBy(query.Ordering);
+            result.FoundProducts = result.FoundProducts.Skip((query.PageNr - 1) * 20).Take(20);
 
             return result;
         }
