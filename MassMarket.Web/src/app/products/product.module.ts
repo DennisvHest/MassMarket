@@ -18,8 +18,9 @@ import {
   MatButtonToggleModule,
   MatPaginatorModule
 } from '@angular/material';
+import { NouisliderModule } from 'ng2-nouislider';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductListItemComponent } from './product-list-item/product-list-item.component';
@@ -44,7 +45,8 @@ import { ProductListItemComponent } from './product-list-item/product-list-item.
     MatSliderModule,
     MatListModule,
     MatButtonToggleModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NouisliderModule
   ],
   declarations: [SearchComponent, ProductCardComponent, ProductListItemComponent]
 })

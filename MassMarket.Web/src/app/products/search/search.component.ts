@@ -54,33 +54,23 @@ export class SearchComponent implements OnInit {
 
   private getSearchOptions() {
     this.productService.getSearchOptions()
-    .subscribe(searchOptions => {
-      searchOptions.categories.unshift(new CategoryOption(0, 'All Categories'));
-      this.searchOptions = searchOptions;
+      .subscribe(searchOptions => {
+        searchOptions.categories.unshift(new CategoryOption(0, 'All Categories'));
+        this.searchOptions = searchOptions;
 
-      const params = <SearchModel>this.route.snapshot.queryParams;
+        const params = <SearchModel>this.route.snapshot.queryParams;
 
-      // Set the search option values to the values from the URL query parameters
-      this.searchForm.setValue({
-        queryText: params.queryText ? params.queryText : '',
-        categoryId: params.categoryId ? +params.categoryId : 0,
-        minPrice: params.minPrice ? +params.minPrice : null,
-        maxPrice: params.maxPrice ? +params.maxPrice : null,
-        ordering: params.ordering ? +params.ordering : 0,
-        pageNr: params.pageNr ? +params.pageNr : 1
+        // Set the search option values to the values from the URL query parameters
+        this.searchForm.setValue({
+          queryText: params.queryText ? params.queryText : '',
+          categoryId: params.categoryId ? +params.categoryId : 0,
+          ordering: params.ordering ? +params.ordering : 0,
+          pageNr: params.pageNr ? +params.pageNr : 1,
+          priceRange: params.priceRange ? params.priceRange : null
+        });
+
+        this.search();
       });
-
-      // Disable minPrice and maxPrice until initial search is complete
-      if (!params.minPrice) {
-        this.searchForm.controls['minPrice'].disable();
-      }
-
-      if (!params.maxPrice) {
-        this.searchForm.controls['maxPrice'].disable();
-      }
-
-      this.search();
-    });
   }
 
   createForm() {
@@ -99,11 +89,17 @@ export class SearchComponent implements OnInit {
 
     this.searching = true;
     this.productService.search(query)
-      .subscribe(foundProducts => {
-        this.searchResult = foundProducts;
+      .subscribe(result => {
+        if (!this.searchForm.value.priceRange) {
+          const params = <SearchModel>this.route.snapshot.queryParams;
+
+          this.searchForm.patchValue({
+            priceRange: params.priceRange ? params.priceRange : [result.minPrice, result.maxPrice]
+          });
+        }
+
+        this.searchResult = result;
         this.searching = false;
-        this.searchForm.controls['minPrice'].enable();
-        this.searchForm.controls['maxPrice'].enable();
       });
   }
 

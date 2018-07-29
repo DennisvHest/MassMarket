@@ -21,17 +21,13 @@
             </ng-container>
           </mat-select>
         </mat-form-field>
-        <div class="m-b">
-          <mat-label>Minimum price</mat-label>
-          <mat-slider #minPriceSlider class="full-width p-a-0" formControlName="minPrice" [max]="searchResult?.maxPrice" [min]="searchResult?.minPrice"></mat-slider>
-          <mat-hint *ngIf="minPriceSlider.value">€ {{minPriceSlider.value}}</mat-hint>
+        <div *ngIf="searchResult" class="m-b">
+          <mat-label>Price</mat-label>
+          <nouislider [min]="searchResult.minPrice" [max]="searchResult.maxPrice" [step]="1" [connect]="true"
+            [formControl]="searchForm.controls['priceRange']"></nouislider>
+          <mat-hint>€ {{searchForm.value.priceRange[0]}}</mat-hint>
+          <mat-hint class="right">€ {{searchForm.value.priceRange[1]}}</mat-hint>
         </div>
-        <div class="m-b">
-          <mat-label>Maximum price</mat-label>
-          <mat-slider #maxPriceSlider class="full-width p-a-0" formControlName="maxPrice" [max]="searchResult?.maxPrice" [min]="minPriceSlider.value"></mat-slider>
-          <mat-hint *ngIf="maxPriceSlider.value">€ {{maxPriceSlider.value}}</mat-hint>
-        </div>
-        <input type="hidden" formControlName="ordering" [(ngModel)]="searchForm.value.ordering" />
         <button mat-raised-button color="primary" class="full-width" (click)="search()">Search</button>
       </form>
     </div>
@@ -73,6 +69,6 @@
       </mat-list>
     </ng-container>
   </div>
-  <mat-paginator *ngIf="searchOptions && searchResult" [pageIndex]="searchForm.value.pageNr - 1" [length]="searchResult.totalProductCount" [pageSize]="20" [pageSizeOptions]="[]" [showFirstLastButtons]="true"
-    (page)="onPageChange($event)"></mat-paginator>
+  <mat-paginator *ngIf="searchOptions && searchResult" [pageIndex]="searchForm.value.pageNr - 1" [length]="searchResult.totalProductCount"
+    [pageSize]="20" [pageSizeOptions]="[]" [showFirstLastButtons]="true" (page)="onPageChange($event)"></mat-paginator>
 </mat-sidenav-container>

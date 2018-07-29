@@ -46,9 +46,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.less",
+              "node_modules/nouislider/distribute/nouislider.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/nouislider/distribute/nouislider.min.js"
+            ]
           },
           "configurations": {
             "production": {

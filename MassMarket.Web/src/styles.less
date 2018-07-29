@@ -15,6 +15,14 @@ body {
     width: 100%;
 }
 
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
 .option-group {
     font-weight: bold;
 }
@@ -1427,4 +1435,32 @@ body {
 
 .w100 {
     width: 100% !important;
+}
+
+.noUi-horizontal {
+    height: 3px !important;
+    border: none !important;
+    background-color: #cccccc !important;
+}
+
+.noUi-connect {
+    background: #3f51b5 !important;
+}
+
+.noUi-handle {
+    border-radius: 100% !important;
+    width: 15px !important;
+    height: 15px !important;
+    border: none !important;
+    background: #3f51b5 !important;
+    box-shadow: none !important;
+    right: -10px !important;
+
+    &:focus {
+        outline: none !important
+    }
+
+    &:before, &:after {
+        display: none !important;
+    }
 }
