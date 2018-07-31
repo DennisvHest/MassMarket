@@ -4,6 +4,7 @@ export class SearchModel {
     ordering = 0;
     pageNr = 1;
     priceRange: number[] = [];
+    metaFieldOptions: number[] = [];
 
     constructor(searchModel: SearchModel) {
         if (searchModel) {
@@ -12,6 +13,7 @@ export class SearchModel {
             this.ordering = searchModel.ordering;
             this.pageNr = searchModel.pageNr;
             this.priceRange = searchModel.priceRange;
+            this.metaFieldOptions = searchModel.metaFieldOptions;
         }
     }
 }

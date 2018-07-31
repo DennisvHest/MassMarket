@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ProductService } from '../product.service';
 import { SearchOptions } from '../../models/search-options';
@@ -27,6 +27,7 @@ export class SearchComponent implements OnInit {
   ProductOrdering = ProductOrdering;
 
   searchForm: FormGroup;
+  @ViewChild('brands') brands;
 
   searching: boolean;
 
@@ -60,13 +61,25 @@ export class SearchComponent implements OnInit {
 
         const params = <SearchModel>this.route.snapshot.queryParams;
 
+        // Make sure that metaFieldOptions from the URL query parameters are an array
+        let metaFieldOptions;
+
+        if (!params.metaFieldOptions) {
+          metaFieldOptions = null;
+        } else if (!params.metaFieldOptions.map) {
+          metaFieldOptions = [params.metaFieldOptions];
+        } else {
+          metaFieldOptions = params.metaFieldOptions;
+        }
+
         // Set the search option values to the values from the URL query parameters
         this.searchForm.setValue({
           queryText: params.queryText ? params.queryText : '',
           categoryId: params.categoryId ? +params.categoryId : 0,
           ordering: params.ordering ? +params.ordering : 0,
           pageNr: params.pageNr ? +params.pageNr : 1,
-          priceRange: params.priceRange ? params.priceRange : null
+          priceRange: params.priceRange ? <number[]>params.priceRange : null,
+          metaFieldOptions: metaFieldOptions ? metaFieldOptions.map((o) => parseInt(<any>o)) : null
         });
 
         this.search();
@@ -78,6 +91,12 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
+    if (this.brands) {
+      this.searchForm.patchValue({
+        metaFieldOptions: this.brands.value
+      });
+    }
+
     const query = this.searchForm.value;
 
     // Change the URL query parameters to the current search query

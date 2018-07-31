@@ -21,10 +21,14 @@
             </ng-container>
           </mat-select>
         </mat-form-field>
+        <mat-form-field *ngIf="searchResult?.brandOptions" class="full-width">
+          <mat-select placeholder="Brands" multiple [value]="searchForm.controls['metaFieldOptions'].value" #brands>
+            <mat-option *ngFor="let brandOption of searchResult.brandOptions" [value]="brandOption.id">{{brandOption.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
         <div *ngIf="searchResult" class="m-b">
           <mat-label>Price</mat-label>
-          <nouislider [min]="searchResult.minPrice" [max]="searchResult.maxPrice" [step]="1" [connect]="true"
-            [formControl]="searchForm.controls['priceRange']"></nouislider>
+          <nouislider [min]="searchResult.minPrice" [max]="searchResult.maxPrice" [step]="1" [connect]="true" [formControl]="searchForm.controls['priceRange']"></nouislider>
           <mat-hint>€ {{searchForm.value.priceRange[0]}}</mat-hint>
           <mat-hint class="right">€ {{searchForm.value.priceRange[1]}}</mat-hint>
         </div>

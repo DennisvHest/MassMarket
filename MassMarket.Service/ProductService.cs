@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MassMarket.Common;
 using MassMarket.Domain.Entities;
 using MassMarket.Domain.Repositories;
 using MassMarket.Service.Helpers;
@@ -36,6 +37,18 @@ namespace MassMarket.Service {
             if (!string.IsNullOrEmpty(query.QueryText)) {
                 foundProducts = foundProducts.Where(p =>
                     p.Name.Contains(query.QueryText) || p.Description.Contains(query.QueryText));
+            }
+
+            // Get all possible brand options before filtering by brand
+            result.BrandOptions = foundProducts
+                .SelectMany(p => p.MetaFields.Where(f => f.MetaFieldId == Constants.BrandMetaFieldId))
+                .Select(f => f.Option).Distinct();
+
+            // MetaFieldOption filter
+            if (query.MetaFieldOptions.All(o => o != 0)) {
+                foundProducts = foundProducts
+                    .Where(p => query.MetaFieldOptions
+                    .Any(o => p.MetaFields.Select(f => f.Option.Id).Contains(o)));
             }
 
             // Check the possible minimum and maximum price before filtering by price

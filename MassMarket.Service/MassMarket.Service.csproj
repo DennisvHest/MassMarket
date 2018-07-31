@@ -55,6 +55,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MassMarket.Common\MassMarket.Common.csproj">
+      <Project>{DB1BD138-D125-4DE1-8505-6E83E3541778}</Project>
+      <Name>MassMarket.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MassMarket.Domain\MassMarket.Domain.csproj">
       <Project>{225A58F6-369E-49E4-A0E2-CD7F27E7A526}</Project>
       <Name>MassMarket.Domain</Name>

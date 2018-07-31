@@ -8,6 +8,7 @@ namespace MassMarket.Service.Models {
         public string QueryText { get; set; }
         public int CategoryId { get; set; }
         public int[] PriceRange { get; set; }
+        public int[] MetaFieldOptions { get; set; }
         public ProductOrdering Ordering { get; set; }
         public int PageNr { get; set; }
 
